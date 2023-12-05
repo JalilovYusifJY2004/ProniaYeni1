@@ -63,9 +63,22 @@
                                             USD
                                         </button>
                                         <ul class="dropdown-menu"
-                                            aria-labelledby="currencyButton">
-                                            <li><a class="dropdown-item" href="#">GBP</a></li>
-                                            <li><a class="dropdown-item" href="#">ISO</a></li>
+                                            aria-labelledby="settingButton">
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item" href="my-account.html">@User.Identity.Name</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" asp-action="logout" asp-controller="account">Log Out</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item" asp-action="register" asp-controller="account">Login | Register</a>
+                                                </li>
+                                            }
                                         </ul>
                                     </li>
                                     <li class="dropdown">
@@ -138,7 +151,7 @@
                                                 else
                                                 {
                                                     <li>
-                                                        <a class="dropdown-item" asp-action="Register" asp-controller="Account">Login | Register</a>
+                                                        <a class="dropdown-item" asp-action="Register" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login </a>
                                                     </li>
                                                 }
 

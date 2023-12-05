@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProniaAB104.Areas.Admin.ViewModels;
 using ProniaAB104.DAL;
@@ -8,6 +9,7 @@ using ProniaAB104.Utilities.Extensions;
 namespace ProniaAB104.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin,Moderator")]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -29,7 +31,7 @@ namespace ProniaAB104.Areas.Admin.Controllers
 
             return View(products);
         }
-
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> Create()
         {
 

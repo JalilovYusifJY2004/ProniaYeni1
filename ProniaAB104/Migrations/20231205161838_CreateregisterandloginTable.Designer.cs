@@ -12,8 +12,8 @@ using ProniaAB104.DAL;
 namespace ProniaAB104.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231205040053_Regester")]
-    partial class Regester
+    [Migration("20231205161838_CreateregisterandloginTable")]
+    partial class CreateregisterandloginTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

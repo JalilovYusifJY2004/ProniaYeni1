@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProniaAB104.Migrations
 {
-    public partial class Regester : Migration
+    public partial class CreateregisterandloginTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
