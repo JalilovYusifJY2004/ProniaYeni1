@@ -1,19 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ProniaAB104.DAL;
 using ProniaAB104.Models;
 using ProniaAB104.ViewModels;
+using System.Security.Claims;
 
 namespace ProniaAB104.Controllers
 {
     public class BasketController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public BasketController(AppDbContext context)
+        public BasketController(AppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -53,6 +57,10 @@ namespace ProniaAB104.Controllers
             Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 
             if (product is null) return NotFound();
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    AppUser user = await _userManager.Users.Include(u => u.BasketItems).FirstOrDefaultAsync(u => u.Id == User.FindFirst(ClaimTypes.NameIdentifier.Value);
+            //}
             List<BasketCookieItemVM> basket;
 
             if (Request.Cookies["Basket"] is not null)
