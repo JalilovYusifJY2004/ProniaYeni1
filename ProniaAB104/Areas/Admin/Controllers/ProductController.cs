@@ -9,7 +9,7 @@ using ProniaAB104.Utilities.Extensions;
 namespace ProniaAB104.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin,Moderator")]
+  
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -20,7 +20,7 @@ namespace ProniaAB104.Areas.Admin.Controllers
             _context = context;
             _env = env;
         }
-
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> Index()
         {
             List<Product> products = await _context.Products
@@ -228,7 +228,7 @@ namespace ProniaAB104.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> Update(int id)
         {
             if (id <= 0) return BadRequest();
@@ -485,6 +485,7 @@ namespace ProniaAB104.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) return BadRequest();
@@ -502,6 +503,7 @@ namespace ProniaAB104.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int id)
         {
             if (id <= 0) return BadRequest();

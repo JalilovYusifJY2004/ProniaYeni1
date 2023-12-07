@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProniaAB104.DAL;
 using ProniaAB104.Models;
@@ -17,13 +18,14 @@ namespace ProniaAB104.Areas.Admin.Controllers
             _context = context;
             _env = env;
         }
+        [Authorize(Roles = "Admin,Moderator")]
         public async Task<IActionResult> Index()
         {
             List<Slide> slides=await _context.Slides.ToListAsync();
 
             return View(slides);
         }
-
+        [Authorize(Roles = "Admin,Moderator")]
         public IActionResult Create()
         {
             return View();
